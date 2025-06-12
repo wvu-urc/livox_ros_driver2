@@ -25,32 +25,6 @@ else
 fi
 echo "ROS version is: "$ROS_VERSION
 
-# clear `build/` folder.
-# TODO: Do not clear these folders, if the last build is based on the same ROS version.
-rm -rf ../../build/
-rm -rf ../../devel/
-rm -rf ../../install/
-# clear src/CMakeLists.txt if it exists.
-if [ -f ../CMakeLists.txt ]; then
-    rm -f ../CMakeLists.txt
-fi
-
-# exit
-
-# substitute the files/folders: CMakeList.txt, package.xml(s)
-if [ ${ROS_VERSION} = ${VERSION_ROS1} ]; then
-    if [ -f package.xml ]; then
-        rm package.xml
-    fi
-    cp -f package_ROS1.xml package.xml
-elif [ ${ROS_VERSION} = ${VERSION_ROS2} ]; then
-    if [ -f package.xml ]; then
-        rm package.xml
-    fi
-    cp -f package_ROS2.xml package.xml
-    cp -rf launch_ROS2/ launch/
-fi
-
 # build
 pushd `pwd` > /dev/null
 if [ $ROS_VERSION = ${VERSION_ROS1} ]; then
